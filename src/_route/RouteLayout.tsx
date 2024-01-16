@@ -1,7 +1,7 @@
 const RouteLayout = () => {
   return (
-    <div>
-      
+    <div className="w-full md:flex">
+      This is Home!!
     </div>
   )
 }
