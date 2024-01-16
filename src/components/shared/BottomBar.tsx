@@ -1,11 +1,37 @@
-import React from 'react'
+import { bottombarLinks } from "@/constants";
+import { INavLink } from "@/types";
+import { Link, useLocation } from "react-router-dom"
 
-const BottomBar = () => {
+const Bottombar = () => {
+  const {pathname} = useLocation()
   return (
-    <div>
-      BottomBar
-    </div>
+    <section className="bottom-bar">
+      {bottombarLinks.map((link: INavLink) => {
+            const isActive = pathname === link.route;
+
+            return (
+              <li
+                key={link.label}
+                className={`leftsidebar-link group ${
+                  isActive && "bg-primary-500"
+                }`}>
+                <Link
+                  to={link.route}
+                  className="flex gap-4 items-center p-4">
+                  <img
+                    src={link.imgURL}
+                    alt={link.label}
+                    className={`group-hover:invert-white ${
+                      isActive && "invert-white"
+                    }`}
+                  />
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
+    </section>
   )
 }
 
-export default BottomBar
+export default Bottombar
