@@ -1,7 +1,17 @@
+import BottomBar from "@/components/shared/BottomBar"
+import LeftSideBar from "@/components/shared/LeftSideBar"
+import TopBar from "@/components/shared/TopBar"
+import { Outlet } from "react-router-dom"
+
 const RouteLayout = () => {
   return (
     <div className="w-full md:flex">
-      This is Home!!
+      <TopBar />
+      <LeftSideBar />
+      <section className="flex flex-1 h-full">
+        <Outlet />
+      </section>
+      <BottomBar />
     </div>
   )
 }
