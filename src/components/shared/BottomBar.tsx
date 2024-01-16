@@ -10,24 +10,22 @@ const Bottombar = () => {
             const isActive = pathname === link.route;
 
             return (
-              <li
-                key={link.label}
-                className={`leftsidebar-link group ${
-                  isActive && "bg-primary-500"
-                }`}>
                 <Link
                   to={link.route}
-                  className="flex gap-4 items-center p-4">
+                  key={link.label}
+                  className={`leftsidebar-link group ${
+                    isActive && "bg-primary-500 rounder-[10px]"
+                  } flex-center flex-col gap-1 p-2 transition`}>
                   <img
                     src={link.imgURL}
                     alt={link.label}
-                    className={`group-hover:invert-white ${
-                      isActive && "invert-white"
+                    width={16}
+                    height={16}
+                    className={`${isActive && "invert-white"
                     }`}
                   />
-                  {link.label}
+                  <p className="tiny-medium text-light">{link.label}</p>
                 </Link>
-              </li>
             );
           })}
     </section>
