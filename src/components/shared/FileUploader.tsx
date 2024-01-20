@@ -15,7 +15,7 @@ const FileUploader = () => {
       {
         fileUrl ? (
             <div>
-                Test 1
+                {/* Test 1 */}
             </div>
         ) : (
             <div className='file_uploader-box'>
