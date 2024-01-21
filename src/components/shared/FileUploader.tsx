@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react'
 import {useDropzone} from 'react-dropzone'
 import { Button } from '../ui/button';
 
-const FileUploader = () => {
+const FileUploader = ({fieldChange, mediaUrl}: any) => {
     const [fileUrl, setfileUrl] = useState('');
     const onDrop = useCallback(acceptedFiles => {
         // Do something with the files
@@ -15,7 +15,7 @@ const FileUploader = () => {
       {
         fileUrl ? (
             <div>
-                {/* Test 1 */}
+                Test 1
             </div>
         ) : (
             <div className='file_uploader-box'>
