@@ -10,7 +10,7 @@ import FileUploader from "../shared/FileUploader"
 import { PostValidation } from "@/lib"
 import { Models } from "appwrite"
 import { useUserContext } from "@/context/AuthContext"
-import { toast } from "../ui/use-toast"
+import { useToast } from "../ui/use-toast"
 import { useNavigate } from "react-router-dom"
 import { useCreatePost } from "@/lib/react-query/queriesAndMutations"
 
@@ -22,7 +22,9 @@ type PostFormProps = {
 const PostForm = ({post}: PostFormProps) => {
   const {mutateAsync: createPost, isPending: isCreatingPost} = useCreatePost();
   const {user} = useUserContext();
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+  const {toast} = useToast();
+
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
@@ -40,12 +42,13 @@ const PostForm = ({post}: PostFormProps) => {
       userId: user.id
     })
 
+    console.log('newPost');
     if(!newPost){
       toast({
         title: "Please try again!!"
       })
-      Navigate("/")
     }
+    navigate("/");
   }
   return (
     <Form {...form}>

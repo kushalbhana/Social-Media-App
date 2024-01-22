@@ -101,7 +101,8 @@ export async function getCurrentUser() {
       // Further logic for creating the post using the uploaded file result
 
       // Get file Url
-      const fileUrl = getFilePreview(uploadedFile.$id);
+      const fileUrl = await getFilePreview(uploadedFile.$id);
+      console.log(fileUrl)
 
       if (!fileUrl){
          deleteFile(uploadedFile.$id);
@@ -109,7 +110,7 @@ export async function getCurrentUser() {
       }
 
       // Convert tags into array
-      const tags = post.tags?.replace(/ /g, '').split(',') || [];
+      const tags = post.tags?.split(',') || [];
 
       const newPost = await databases.createDocument(
          appwriteConfig.databaseId,
@@ -118,10 +119,10 @@ export async function getCurrentUser() {
          {
             creator: post.userId,
             caption: post.caption,
-            imageUrl: fileUrl,
-            imageId: uploadedFile.$id,
+            imageURL: fileUrl,
+            imageID: uploadedFile.$id,
             location: post.location,
-            tags: tags
+            tag: tags
          }
       )
 
@@ -176,13 +177,21 @@ export async function deleteFile(fileId: string){
    }
 }
 
-export async function getRecentPosts(){
-   const posts = await databases.listDocuments(
-      appwriteConfig.databaseId,
-      appwriteConfig.postCollectionId,
-      [Query.orderDesc('$createAt'), Query.limit(20)]
-   )
+export async function getRecentPosts() {
+   try {
+      const posts = await databases.listDocuments(
+         appwriteConfig.databaseId,
+         appwriteConfig.postCollectionId,
+         [Query.orderDesc('$createdAt'), Query.limit(20)]
+      );
 
-   if (!posts) throw Error;
-   return posts;
+      if (!posts) {
+         throw new Error('No posts found'); // Adjust the error message as needed
+      }
+
+      return posts;
+   } catch (error) {
+      console.error('Error fetching recent posts:', error);
+      throw error; // Rethrow the error or handle it accordingly
+   }
 }
