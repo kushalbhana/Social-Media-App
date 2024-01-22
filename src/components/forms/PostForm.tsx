@@ -3,21 +3,26 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "../ui/textarea"
 import FileUploader from "../shared/FileUploader"
 import { PostValidation } from "@/lib"
+import { Models } from "appwrite"
+import { useUserContext } from "@/context/AuthContext"
+import { toast } from "../ui/use-toast"
+import { useNavigate } from "react-router-dom"
+import { useCreatePost } from "@/lib/react-query/queriesAndMutations"
+
+type PostFormProps = {
+  post?: Models.Document;
+}
 
 
-const PostForm = ({post}) => {
+const PostForm = ({post}: PostFormProps) => {
+  const {mutateAsync: createPost, isPending: isCreatingPost} = useCreatePost();
+  const {user} = useUserContext();
+  const Navigate = useNavigate();
   const form = useForm<z.infer<typeof PostValidation>>({
     resolver: zodResolver(PostValidation),
     defaultValues: {
@@ -29,10 +34,18 @@ const PostForm = ({post}) => {
   })
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof PostValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof PostValidation>) {
+    const newPost = await createPost({
+      ...values,
+      userId: user.id
+    })
+
+    if(!newPost){
+      toast({
+        title: "Please try again!!"
+      })
+      Navigate("/")
+    }
   }
   return (
     <Form {...form}>
@@ -83,7 +96,7 @@ const PostForm = ({post}) => {
 
         <FormField
           control={form.control}
-          name="location"
+          name="tags"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="shad-form_label">Tags ( Seprated by ",")</FormLabel>
