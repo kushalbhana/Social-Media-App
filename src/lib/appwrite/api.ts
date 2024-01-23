@@ -81,16 +81,16 @@ export async function getCurrentUser() {
    }
  }
 
- export async function signOutAccount() {
+export async function signOutAccount() {
    try {
       const session= await account.deleteSession("current");
       return session;
    } catch (error) {
       console.log(error)
    }
- }
+}
 
- export async function createPost(post: INewPost) {
+export async function createPost(post: INewPost) {
    try {
       const uploadedFile = await uploadFile(post.file[0]); // Pass post.file to uploadFile
 
@@ -192,6 +192,6 @@ export async function getRecentPosts() {
       return posts;
    } catch (error) {
       console.error('Error fetching recent posts:', error);
-      throw error; // Rethrow the error or handle it accordingly
+      throw error; 
    }
 }
