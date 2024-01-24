@@ -137,7 +137,6 @@ export async function createPost(post: INewPost) {
    }
 }
 
-
 export async function uploadFile(file: File) {
    try {
       const uploadedFile = await storage.createFile(
@@ -150,7 +149,6 @@ export async function uploadFile(file: File) {
       console.log(error);
    }
 }
-
 
 export async function getFilePreview(fileId:string) {
    try {
