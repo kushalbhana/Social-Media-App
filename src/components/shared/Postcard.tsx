@@ -1,12 +1,16 @@
 import { Models } from "appwrite"
 import { Link } from "react-router-dom"
 import { formatDateString } from "@/lib/utils"
+import { useUserContext } from "@/context/AuthContext";
 
 type PostCardProps = {
     post: Models.Document;
 }
 
 const Postcard = ({post}: PostCardProps) => {
+    const {user} = useUserContext();
+    if (!post.creator) return;
+
   return (
     <div className="post-card">
       <div className="flex-between">
@@ -23,7 +27,12 @@ const Postcard = ({post}: PostCardProps) => {
                 </div>
             </div>
         </div>
+        <Link to= {`/update-post/${post.$id}`} className={`${user.id !== post.creator.$id && "hidden"}`}>
+            <img src="/assets/icons/edit.svg" alt="edit" height={20} width={20} />
+        </Link>
       </div>
+      <Link to={`/posts/${post.$id}`}>
+      </Link>
     </div>
   )
 }
