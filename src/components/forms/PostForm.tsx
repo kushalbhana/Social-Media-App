@@ -88,23 +88,23 @@ const PostForm = ({post}: PostFormProps) => {
           name="location"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Add Location</FormLabel>
+              <FormLabel className="shad-form_label">Location</FormLabel>
               <FormControl>
-                <Input type="text" className="shad-input" />
+                <Textarea placeholder="San Diego" {...field} className="shad-textarea custom-scroll"/>
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>
           )}
         />
 
-        <FormField
+<FormField
           control={form.control}
           name="tags"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Tags ( Seprated by ",")</FormLabel>
+              <FormLabel className="shad-form_label">Tags</FormLabel>
               <FormControl>
-                <Input type="text" placeholder="Art, Expression, Learn" className="shad-input" />
+                <Textarea placeholder="Art, Design, Travel" {...field} className="shad-textarea custom-scroll"/>
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>

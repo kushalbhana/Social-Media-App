@@ -17,7 +17,7 @@ const home = () => {
           ): (
             <ul className="flex flex-col fkex-1 gap-9 w-full">
               {posts?.documents.map((post: Models.Document) => (
-                <li><Postcard post= {post}/></li>
+                <Postcard post= {post} key={post.caption} />
               ))}
             </ul>
           )}
