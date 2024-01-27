@@ -46,7 +46,7 @@ const Postcard = ({post}: PostCardProps) => {
         </ul>
         <img src={post.imageURL || "/assets/icons/profile-placeholder.svg"} alt="post image" className="post-card_img" />
       </Link>
-      <PostStats post={post} userId={post.creator.id} />
+      <PostStats post={post} userId={user.id} />
 
     </div>
   )

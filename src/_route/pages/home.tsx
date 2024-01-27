@@ -1,7 +1,9 @@
 import Loader from "@/components/shared/Loader";
 import Postcard from "@/components/shared/Postcard";
+import { useUserContext } from "@/context/AuthContext";
 import { useGetRecentPosts } from "@/lib/react-query/queriesAndMutations";
 import { Models } from "appwrite";
+import { useContext } from "react";
 
 
 const home = () => {
