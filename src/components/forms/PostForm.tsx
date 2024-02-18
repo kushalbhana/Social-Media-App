@@ -15,10 +15,11 @@ import { useCreatePost } from "@/lib/react-query/queriesAndMutations"
 
 type PostFormProps = {
   post?: Models.Document;
+  action: 'Create' | 'Update';
 }
 
 
-const PostForm = ({post}: PostFormProps) => {
+const PostForm = ({post, action}: PostFormProps) => {
   const {mutateAsync: createPost, isPending: isCreatingPost} = useCreatePost();
   const {user} = useUserContext();
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const PostForm = ({post}: PostFormProps) => {
       caption: post ? post?.caption : "",
       file: [],
       location: post ? post?.location : "",
-      tags: post ? post?.tags.join(",") : ''
+      tags: post ? post?.tags?.join(",") : ''
     },
   })
  
@@ -49,6 +50,8 @@ const PostForm = ({post}: PostFormProps) => {
     }
     navigate("/");
   }
+
+  console.log(post?.imageUrl)
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-9 w-full max-w-5xl">
