@@ -51,7 +51,6 @@ const PostForm = ({post, action}: PostFormProps) => {
     navigate("/");
   }
 
-  console.log(post?.imageUrl)
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-9 w-full max-w-5xl">
@@ -78,7 +77,7 @@ const PostForm = ({post, action}: PostFormProps) => {
               <FormControl>
                 <FileUploader 
                 fieldChange={field.onChange}
-                mediaUrl = {post?.imageUrl} />
+                mediaUrl = {post?.imageURL} />
               </FormControl>
               <FormMessage className="shad-form_message" />
             </FormItem>
