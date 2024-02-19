@@ -1,4 +1,4 @@
-import { INewPost, INewUser } from "@/types";
+import { INewPost, INewUser, IUpdatePost } from "@/types";
 import { account, appwriteConfig, avatars, databases, storage } from "./config";
 import { ID, Query } from "appwrite";
 
@@ -266,3 +266,80 @@ export async function getPostById(postId?: string){
      console.log(error);
    }
  }
+
+ export async function updatePost(post: IUpdatePost) {
+   const hasFileToUpdate = post.file.length > 0;
+
+   try {
+      let image = { 
+         imageURL: post.imageUrl,
+         imageId: post.imageId
+         
+      } 
+
+      if(hasFileToUpdate){
+         const uploadedFile = await uploadFile(post.file[0]); // Pass post.file to uploadFile
+
+         if (!uploadedFile) {
+            throw Error;
+         }
+
+         // Get file Url
+         const fileUrl = await getFilePreview(uploadedFile.$id);
+         console.log(fileUrl)
+   
+         if (!fileUrl){
+            deleteFile(uploadedFile.$id);
+            throw Error
+         }
+
+         image = {...image, imageURL:fileUrl, imageId: uploadedFile.$id}
+      }
+
+      // Convert tags into array
+      const tags = post.tags?.split(',') || [];
+
+      const updatedPost = await databases.updateDocument(
+         appwriteConfig.databaseId,
+         appwriteConfig.postCollectionId,
+         post.postId,
+         {
+            caption: post.caption,
+            imageURL: image.imageURL,
+            imageID: image.imageId,
+            location: post.location,
+            tag: tags
+         }
+      )
+
+      if(!updatedPost){
+         await deleteFile(post.imageId);
+         throw Error
+      }
+      return updatePost;
+      
+   } catch (error) {
+      console.log(error);
+   }
+}
+
+export async function deletePost(postId?: string, imageId?: string) {
+   if (!postId || !imageId) return;
+ 
+   try {
+     const statusCode = await databases.deleteDocument(
+       appwriteConfig.databaseId,
+       appwriteConfig.postCollectionId,
+       postId
+     );
+ 
+     if (!statusCode) throw Error;
+ 
+     await deleteFile(imageId);
+ 
+     return { status: "Ok" };
+   } catch (error) {
+     console.log(error);
+   }
+ }
+ 
