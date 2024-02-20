@@ -11,7 +11,9 @@ import { createPost,
     signOutAccount,
     getCurrentUser,
     getPostById,
-    updatePost, deletePost} from '../appwrite/api'
+    updatePost, 
+    deletePost, 
+    getUserPosts} from '../appwrite/api'
 import { INewPost, INewUser, IUpdatePost } from '@/types'
 import { QUERY_KEYS } from './queryKeys'
 
@@ -140,7 +142,7 @@ export const useUpdatePost = () => {
   };
   
   
-  
+
 
 export const useDeletePost = () => {
     const queryClient = useQueryClient();
@@ -152,5 +154,13 @@ export const useDeletePost = () => {
           queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
         });
       },
+    });
+  };
+
+export const useGetUserPosts = (userId?: string) => {
+    return useQuery({
+      queryKey: [QUERY_KEYS.GET_USER_POSTS, userId],
+      queryFn: () => getUserPosts(userId),
+      enabled: !!userId,
     });
   };
