@@ -23,7 +23,7 @@ const GridPostList = ({
         <li key={post.$id} className="relative min-w-80 h-80">
           <Link to={`/posts/${post.$id}`} className="grid-post_link">
             <img
-              src={post.imageUrl}
+              src={post.imageURL}
               alt="post"
               className="h-full w-full object-cover"
             />
@@ -34,7 +34,7 @@ const GridPostList = ({
               <div className="flex items-center justify-start gap-2 flex-1">
                 <img
                   src={
-                    post.creator.imageUrl ||
+                    post.creator.imageURL ||
                     "/assets/icons/profile-placeholder.svg"
                   }
                   alt="creator"
