@@ -1,14 +1,8 @@
-
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
 import { useUserContext } from "@/context/AuthContext"
-import GridPostList from "@/components/shared/GridPostList";
-import { useGetUserPosts } from "@/lib/react-query/queriesAndMutations";
 
 export default function Component() {
   const { user } = useUserContext();
 
-  const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(user.$id);
   
 
 
