@@ -15,8 +15,8 @@ export type INavLink = {
   
   export type INewPost = {
     userId: string;
-    caption: string;
-    file: File[];
+    caption?: string;
+    file?: File[];
     location?: string;
     tags?: string;
   };
@@ -42,7 +42,7 @@ export type INavLink = {
   
   export type INewUser = {
     name?: string;
-    email: string;
-    username: string;
-    password: string;
+    email?: string;
+    username?: string;
+    password?: string;
   };
