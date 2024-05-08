@@ -41,7 +41,7 @@ export type INavLink = {
   };
   
   export type INewUser = {
-    name: string;
+    name?: string;
     email: string;
     username: string;
     password: string;

@@ -166,7 +166,7 @@ export const useGetUserPosts = (userId?: string) => {
     });
   };
 
-export const useGetPosts = () => {
+  export const useGetPosts = () => {
     return useInfiniteQuery({
       queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
       queryFn: getInfinitePosts as any,
@@ -180,6 +180,7 @@ export const useGetPosts = () => {
         const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
         return lastId;
       },
+      initialPageParam: null // or undefined if there's no initial parameter
     });
   };
 
