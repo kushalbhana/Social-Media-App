@@ -3,6 +3,7 @@
 ## Overview
 Welcome to the PostHub Social Media App repository! PostHub is a cutting-edge social media application developed using React, featuring a robust authentication system and a plethora of engaging features. Explore posts, like and save your favorites, search for content, and much more.
 
+![alt text](https://i.ibb.co/PxgZ8X0/chrome-8-L3-R4ul-Eq9.png)
 ## Features
 ###Robust Authentication System
 PostHub ensures a secure and robust authentication system by implementing industry best practices. This includes secure password hashing, account verification processes, and protection against common security threats, providing users with a trustworthy and reliable experience.
