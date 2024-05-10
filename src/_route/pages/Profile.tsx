@@ -2,14 +2,18 @@ import { useUserContext } from "@/context/AuthContext"
 import GridPostList from "@/components/shared/GridPostList";
 import Loader from "@/components/shared/Loader";
 import { useGetUserPosts } from "@/lib/react-query/queriesAndMutations";
+import { useParams } from "react-router-dom";
+
 
 export default function Component() {
   const { user } = useUserContext();
+  const { id } = useParams<{id: string}>();
 
-  const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(user.id);
+  const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(id);
   const relatedPosts = userPosts?.documents.filter(
-    (userPost) => userPost.$id !== user.id
+    (userPost) => userPost.$id !== id
   );
+  
 
   return (
 

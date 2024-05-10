@@ -1,6 +1,7 @@
 import { INewPost, INewUser, IUpdatePost } from "@/types";
 import { account, appwriteConfig, avatars, databases, storage } from "./config";
 import { ID, Query } from "appwrite";
+import { error } from "console";
 
 
 export async function createUserAccount(user: INewUser) {
@@ -399,4 +400,21 @@ export async function searchPosts(searchTerm : string) {
       console.log(error)
    }
 
+}
+
+export async function getUserById(id:string) {
+   try {
+      const user = await databases.listDocuments(
+         appwriteConfig.databaseId,
+         appwriteConfig.userCollectionId,
+         [Query.equal("accountId", id)]
+      )
+
+      if (!user) throw error;
+
+      return user.documents[0]
+   } catch (error) {
+      console.log(error);
+      return null;
+   }
 }

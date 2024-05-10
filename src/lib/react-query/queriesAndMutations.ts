@@ -16,7 +16,8 @@ import { createPost,
     deletePost, 
     getUserPosts,
     getInfinitePosts,
-    searchPosts} from '../appwrite/api'
+    searchPosts,
+    getUserById} from '../appwrite/api'
 import { INewPost, INewUser, IUpdatePost } from '@/types'
 import { QUERY_KEYS } from './queryKeys'
 
@@ -193,3 +194,10 @@ export const useSearchPosts = (searchTerm: string) => {
       enabled: !!searchTerm,
     });
   };
+
+export const useGetUserById = (id: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_BY_ID, id],
+    queryFn: () => getUserById(id),
+  });
+}
