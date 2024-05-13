@@ -1,4 +1,4 @@
-# PostHub Social Media App
+# PostHub- Social Media App
 
 ## Overview
 Welcome to the PostHub Social Media App repository! PostHub is a cutting-edge social media application developed using React, featuring a robust authentication system and a plethora of engaging features. Explore posts, like and save your favorites, search for content, and much more.
