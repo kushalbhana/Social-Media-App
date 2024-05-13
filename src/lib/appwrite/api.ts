@@ -411,11 +411,8 @@ export async function getUserById(id:string) {
          [Query.equal("$id", id)]
       )    
 
-  
-
       if (!user) throw Error;
-      
-      
+       
       return user.documents[0]
    } catch (error) {
       console.log(error);

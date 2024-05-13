@@ -3,7 +3,7 @@ import GridPostList from "@/components/shared/GridPostList";
 import Loader from "@/components/shared/Loader";
 import { useGetUserPosts,
    useGetUserById } from "@/lib/react-query/queriesAndMutations";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 
 
@@ -31,8 +31,9 @@ export default function Component() {
           <div className="name">
             <div className="flex">
             <h2 className=" h4-bold mx-6 md:h2-bold md:mx-10">{userDetails && userDetails.name}</h2>
+            <Link to = {`/update-profile/${userDetails.$id}`}>
             {userDetails && (userDetails.$id === user.id) ? (<img src="/assets/icons/edit.svg" height={20} width={20} alt="edit" className="align-right" />) : (null)}
-            
+            </Link>
             
             </div>
             
